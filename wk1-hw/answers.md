@@ -1,5 +1,5 @@
 ## Homework for Wk 1
-#### Question 1
+### Question 1
 Run docker with the `python:3.12.8` image in an interactive mode, use the entrypoint bash.
 
 What's the version of `pip` in the image?
@@ -7,11 +7,11 @@ What's the version of `pip` in the image?
 * `pip --version`
     - 24.3.1
 
-#### Question 2
+### Question 2
 * `hostname`: `postgres`
 * `port`: 5432
 
-#### Question 3
+### Question 3
 1. 104802
 - `SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance <= 1;`
 2. 198924
@@ -23,7 +23,7 @@ What's the version of `pip` in the image?
 5. 35189
 - `SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 10;`
 
-#### Question 4
+### Question 4
 - 2019-10-11: 95.78mi
 - 2019-10-24: 90.75mi
 - 2019-10-26: 91.56mi
@@ -41,4 +41,37 @@ WHERE
 GROUP BY 1;
 ```
 
-#### Question 5
+### Question 5
+- East Harlem North, East Harlem South, Morningside Heights
+
+Query:
+```
+SELECT
+	pickup_zones."Zone",
+	SUM(green_taxis."total_amount")
+FROM green_taxis
+LEFT JOIN zones pickup_zones ON pickup_zones."LocationID" = green_taxis."PULocationID"
+WHERE green_taxis."lpep_pickup_datetime"::DATE = '2019-10-18'
+GROUP BY 1
+HAVING SUM(green_taxis."total_amount") > 13000;
+```
+
+### Question 6
+- JFK Airport
+
+Query:
+```
+SELECT
+	dropoff_zones."Zone",
+	MAX(green_taxis."tip_amount")
+FROM green_taxis
+LEFT JOIN zones pickup_zones ON pickup_zones."LocationID" = green_taxis."PULocationID"
+LEFT JOIN zones dropoff_zones ON dropoff_zones."LocationID" = green_taxis."DOLocationID"
+WHERE 
+	green_taxis."lpep_pickup_datetime"::DATE BETWEEN '2019-10-01' AND '2019-10-31'
+	AND pickup_zones."Zone" = 'East Harlem North'
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+
+### Question 7
