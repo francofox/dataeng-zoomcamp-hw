@@ -13,15 +13,25 @@ What's the version of `pip` in the image?
 
 ### Question 3
 1. 104802
-- `SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance <= 1;`
+```sql
+SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance <= 1;
+```
 2. 198924
-- `SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 1 AND trip_distance <= 3;`
+```sql
+SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 1 AND trip_distance <= 3;
+```
 3. 109603
-- `SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 3 AND trip_distance <= 7;`
+```sql
+SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 3 AND trip_distance <= 7;
+```
 4. 27678
-- `SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 7 AND trip_distance <= 10;`
+```sql
+SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 7 AND trip_distance <= 10;`
+```
 5. 35189
-- `SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 10;`
+```sql
+SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 10;
+```
 
 ### Question 4
 - 2019-10-11: 95.78mi
@@ -31,7 +41,7 @@ What's the version of `pip` in the image?
 
 Therefore, `2019-10-31` was the day with the longest max distance.
 Query:
-```
+```sql
 SELECT
 	lpep_pickup_datetime::DATE AS pickup_date,
 	MAX(trip_distance)
@@ -45,7 +55,7 @@ GROUP BY 1;
 - East Harlem North, East Harlem South, Morningside Heights
 
 Query:
-```
+```sql
 SELECT
 	pickup_zones."Zone",
 	SUM(green_taxis."total_amount")
@@ -60,7 +70,7 @@ HAVING SUM(green_taxis."total_amount") > 13000;
 - JFK Airport
 
 Query:
-```
+```sql
 SELECT
 	dropoff_zones."Zone",
 	MAX(green_taxis."tip_amount")
