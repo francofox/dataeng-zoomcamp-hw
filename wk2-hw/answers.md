@@ -8,11 +8,14 @@ As the flow purges the current execution files after moving the data over into G
 
 ### Question 2
 * `file: "{{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv"`
-* ergo: `"{{render(vars.file)}}" = "green_tripdata_2020-04.csv"`
+* ergo: 
+    - `"{{render(vars.file)}}" = "green_tripdata_2020-04.csv"`
 
 ### Question 3
 Query run in BigQuery:
-- `SELECT COUNT(*) FROM \`projectid.datasetname.yellow_tripdata\` WHERE filename LIKE "%2020%";`
+```sql
+SELECT COUNT(*) FROM \`projectid.datasetname.yellow_tripdata\` WHERE filename LIKE "%2020%";
+```
 
 Results:
 | Row | f0_ |
@@ -21,7 +24,9 @@ Results:
 
 ### Question 4
 Query run in BigQuery:
-- `SELECT COUNT(*) FROM \`projectid.datasetname.green_tripdata\` WHERE filename LIKE "%2020%";`
+```sql
+SELECT COUNT(*) FROM \`projectid.datasetname.green_tripdata\` WHERE filename LIKE "%2020%";
+```
 
 Results:
 | Row | f0_ |
@@ -30,8 +35,9 @@ Results:
 
 ### Question 5
 Query run in BigQuery:
-- `SELECT COUNT(*) FROM \`projectid.datasetname.yellow_tripdata\` WHERE filename LIKE "%2021-03%";`
-
+```sql
+SELECT COUNT(*) FROM `projectid.datasetname.yellow_tripdata` WHERE filename LIKE "%2021-03%";
+```
 Results:
 | Row | f0_ |
 | - | - |
