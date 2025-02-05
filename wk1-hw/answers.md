@@ -12,25 +12,48 @@ What's the version of `pip` in the image?
 * `port`: 5432
 
 ### Question 3
-1. 104802
+1. **104802**
 ```sql
-SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance <= 1;
+SELECT COUNT(*) 
+FROM green_taxis 
+WHERE 
+	lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' 
+	AND trip_distance <= 1;
 ```
-2. 198924
+2. **198924**
 ```sql
-SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 1 AND trip_distance <= 3;
+SELECT COUNT(*)
+FROM green_taxis 
+WHERE  
+	lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' 
+	AND trip_distance > 1 
+	AND trip_distance <= 3;
 ```
-3. 109603
+3. **109603**
 ```sql
-SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 3 AND trip_distance <= 7;
+SELECT COUNT(*) 
+FROM green_taxis 
+WHERE 
+	lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' 
+	AND trip_distance > 3 
+	AND trip_distance <= 7;
 ```
-4. 27678
+4. **27678**
 ```sql
-SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 7 AND trip_distance <= 10;`
+SELECT COUNT(*) 
+FROM green_taxis 
+WHERE 
+	lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' 
+	AND trip_distance > 7 
+	AND trip_distance <= 10;
 ```
-5. 35189
+5. **35189**
 ```sql
-SELECT COUNT(*) FROM green_taxis WHERE lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' AND trip_distance > 10;
+SELECT COUNT(*) 
+FROM green_taxis 
+WHERE 
+	lpep_dropoff_datetime::DATE BETWEEN '2019-10-01' AND '2019-10-31' 
+	AND trip_distance > 10;
 ```
 
 ### Question 4
@@ -67,7 +90,7 @@ HAVING SUM(green_taxis."total_amount") > 13000;
 ```
 
 ### Question 6
-- JFK Airport
+- **JFK Airport**
 
 Query:
 ```sql
