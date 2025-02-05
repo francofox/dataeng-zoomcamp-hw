@@ -14,7 +14,7 @@ As the flow purges the current execution files after moving the data over into G
 ### Question 3
 Query run in BigQuery:
 ```sql
-SELECT COUNT(*) FROM \`projectid.datasetname.yellow_tripdata\` WHERE filename LIKE "%2020%";
+SELECT COUNT(*) FROM `projectid.datasetname.yellow_tripdata` WHERE filename LIKE "%2020%";
 ```
 
 Results:
@@ -25,7 +25,7 @@ Results:
 ### Question 4
 Query run in BigQuery:
 ```sql
-SELECT COUNT(*) FROM \`projectid.datasetname.green_tripdata\` WHERE filename LIKE "%2020%";
+SELECT COUNT(*) FROM `projectid.datasetname.green_tripdata` WHERE filename LIKE "%2020%";
 ```
 
 Results:
