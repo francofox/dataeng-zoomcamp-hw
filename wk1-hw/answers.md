@@ -63,6 +63,7 @@ WHERE
 - 2019-10-31: 515.89mi
 
 Therefore, `2019-10-31` was the day with the longest max distance.
+
 Query:
 ```sql
 SELECT
