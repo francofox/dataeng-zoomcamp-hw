@@ -14,7 +14,8 @@ SELECT * FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024_parquet
 ### Question 1
 This is visible at the bottom of the BigQuery "Preview" tab, but if I were to write a SQL query to find this, it would be:
 ```sql
-SELECT COUNT(*) FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024';
+SELECT COUNT(*) 
+FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024;
 ```
 
 **answer: 20_332_093**
@@ -33,9 +34,11 @@ SELECT COUNT(DISTINCT PULocationID) FROM de-course-448103.demo_dataset_de_course
 ### Question 3
 Query:
 ```sql
-SELECT PULocationID FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024;
+SELECT PULocationID 
+FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024;
 -- 155.12MB
-SELECT PULocationID, DOLocationID FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024;
+SELECT PULocationID, DOLocationID 
+FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024;
 -- 310.24MB, i.e. two times the column's size
 ```
 
@@ -44,7 +47,9 @@ The reason for this is that BigQuery is a columnar database and it only scans th
 ### Question 4
 Query:
 ```sql
-SELECT COUNT(*) FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024 WHERE fare_amount = 0;
+SELECT COUNT(*) 
+FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024 
+WHERE fare_amount = 0;
 ```
 Result:
 
@@ -54,6 +59,7 @@ Result:
 
 ### Question 5
 **Answer: Partition by `tpep_dropoff_datetime` and cluster by `VendorID`**
+
 Query:
 ```sql
 CREATE OR REPLACE TABLE `de-course-448103.demo_dataset_de_course_448103.yellow_2024_part_tpepdr`
@@ -64,9 +70,13 @@ SELECT * FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024;
 
 ### Question 6
 ```sql
-SELECT DISTINCT VendorID FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024 WHERE DATE(tpep_dropoff_datetime) BETWEEN '2024-03-01' AND '2024-03-15';
+SELECT DISTINCT VendorID 
+FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024 
+WHERE DATE(tpep_dropoff_datetime) BETWEEN '2024-03-01' AND '2024-03-15';
 -- above is unpartitioned/unclustered table - 310.24MB to process
-SELECT DISTINCT VendorID FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024_part_tpepdr WHERE DATE(tpep_dropoff_datetime) BETWEEN '2024-03-01' AND '2024-03-15';
+SELECT DISTINCT VendorID 
+FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024_part_tpepdr 
+WHERE DATE(tpep_dropoff_datetime) BETWEEN '2024-03-01' AND '2024-03-15';
 -- above is partitioned/clustered table - 26.84MB to process
 ```
 
@@ -74,14 +84,17 @@ SELECT DISTINCT VendorID FROM de-course-448103.demo_dataset_de_course_448103.yel
 
 ### Question 7
 Question: Where is the data stored in the external table previously created?
+
 **Answer: GCP Bucket**
 
 ### Question 8
 It is best practice in BigQuery to always cluster your data:
+
 **Answer: false - there is little to no effect to cluster tables <1GB in size**
 
 ### Question 9
 ```sql
-SELECT COUNT(*) FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024';
+SELECT COUNT(*) 
+FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024';
 ```
 It estimates 0B to be read, which is because this information is stored in the metadata of the table in `INFORMATION_SCHEMA.TABLE_STORAGE`, so it costs nothing to access as there is no actual counting of rows. 
