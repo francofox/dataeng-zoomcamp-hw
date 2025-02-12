@@ -18,7 +18,7 @@ SELECT COUNT(*)
 FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024;
 ```
 
-**answer: 20_332_093**
+**Answer: 20_332_093**
 
 ### Question 2
 Query:
@@ -29,7 +29,7 @@ SELECT COUNT(DISTINCT PULocationID) FROM de-course-448103.demo_dataset_de_course
 -- The above will process 0B when run; this is the external table
 ```
 
-**answer: 0B for the external table, 155.12MB for the materialized table**
+**Answer: 0B for the external table, 155.12MB for the materialized table**
 
 ### Question 3
 Query:
@@ -95,6 +95,6 @@ It is best practice in BigQuery to always cluster your data:
 ### Question 9
 ```sql
 SELECT COUNT(*) 
-FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024';
+FROM de-course-448103.demo_dataset_de_course_448103.yellow_2024;
 ```
 It estimates 0B to be read, which is because this information is stored in the metadata of the table in `INFORMATION_SCHEMA.TABLE_STORAGE`, so it costs nothing to access as there is no actual counting of rows. 
