@@ -198,7 +198,7 @@ select
     dropoff_zone,
     p90
 from initialcte
-where ranking <= 2
+where ranking = 2
 ```
 | pickup_zone | dropoff_zone | p90 |
 | - | - | - |
@@ -206,3 +206,4 @@ where ranking <= 2
 | Yorkville East | Garment District | 230 |
 | Newark Airport | Williamsburg (South Side) | 135.9 |
 
+I tried to do this every which way but no matter how I did it I ended up with Newark Airport corresponding to Williamsburg (South Side), rather than LaGuardia Airport. 
