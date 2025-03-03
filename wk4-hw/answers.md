@@ -33,3 +33,49 @@ In order to allow for overriding the default production time length of 30 days b
 Therefore, the answer is "Update the `WHERE` clause to `pickup_datetime >= CURRENT_DATE - INTERVAL '{{ var("days_back", env_var("DAYS_BACK", "30"))}}' DAY`
 
 ### Question 3
+* `dbt run --select models/staging/+
+
+### Question 4
+True statements:
+* Setting a value for `DBT_BIGQUERY_TARGET_DATASET` is mandatory, otherwise it will fail to compile.
+* X
+* When using `core`, it materializes in the dataset defined in `DBT_BIGQUERY_TARGET_DATASET`.
+* When using `stg`, it materializes in the dataset defined in `DBT_BIGQUERY_STAGING_DATASET`, or defaults to `DBT_BIGQUERY_TARGET_DATASET`.
+* When using `staging`, it materializes in the dataset defined in `DBT_BIGQUERY_STAGING_DATASET`, or defaults to `DBT_BIGQUERY_TARGET_DATASET`.
+
+### Question 5
+1. 
+```sql
+-- fct_taxi_trips_quarterly_revenue.sql
+WITH quarterly AS
+(
+    SELECT 
+        service_type,
+        pickup_datetime,
+        DATE_TRUNC(pickup_datetime, QUARTER) AS trunc_quarter,
+        -- EXTRACT(YEAR FROM pickup_datetime) || '-Q' || EXTRACT(QUARTER FROM pickup_datetime) AS year_quarter,
+        total_amount
+    FROM {{ ref('fact_trips') }}
+    WHERE EXTRACT(YEAR FROM pickup_datetime) BETWEEN 2019 AND 2020
+), 
+revs AS
+(
+    SELECT
+        service_type,
+        trunc_quarter,
+        SUM(total_amount) AS quarterly_revenue
+    FROM quarterly
+    GROUP BY 1, 2
+)
+
+SELECT
+    service_type,
+    trunc_quarter,
+    quarterly_revenue,
+    CASE WHEN 
+        EXTRACT(YEAR FROM trunc_quarter) <> 2020 THEN NULL 
+        ELSE 100 * ((quarterly_revenue - LAG(quarterly_revenue, 4) OVER (ORDER BY trunc_quarter))/ LAG(quarterly_revenue, 4) OVER (ORDER BY trunc_quarter)) 
+    END AS yoy_q_rev_growth
+FROM revs
+ORDER BY 1, 2 ASC
+```
